@@ -1,7 +1,16 @@
 #!/bin/sh
 
-CFLAGS="-Wall -Wextra -pedantic"
+OBJECTS=()
 
-gcc $CFLAGS -c game.c
+function CC {
+    gcc -Wall -Wextra -pedantic -c $1
+    OBJECTS+="${1%.*}.o "
+}
 
-gcc game.o -o game -lraylib -lm
+CC game.c
+CC main.c
+CC title_screan.c
+
+gcc -lraylib -lm $OBJECTS -o game
+
+echo "finished"
